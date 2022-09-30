@@ -1,0 +1,2 @@
+const SUPABASE_URL = 'https://nmnkujceyejmwbdaotgo.supabase.co'
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tbmt1amNleWVqbXdiZGFvdGdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ1NDgwNzksImV4cCI6MTk4MDEyNDA3OX0.DRWx-txO294CwD9jwnR-ttQX2A1cwMRN3DqHckUxlj0'
