@@ -51,8 +51,8 @@ import { SupabaseAuthClient } from '@supabase/supabase-js/dist/module/lib/Supaba
 
 <script>
 
-const SUPABASE_URL = 'YOUR_SUPABASE_URL'
-const SUPABASE_KEY = 'ANON_SUPABASE_KEY'
+const SUPABASE_URL = 'https://nmnkujceyejmwbdaotgo.supabase.co'
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tbmt1amNleWVqbXdiZGFvdGdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ1NDgwNzksImV4cCI6MTk4MDEyNDA3OX0.DRWx-txO294CwD9jwnR-ttQX2A1cwMRN3DqHckUxlj0'
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
 
@@ -61,7 +61,16 @@ export default {
     //this method allows a new user to sign up the system. Once done, the user receives an email
     //asking for account validation. Once the validation made the user is added to the system
     async register(){
-
+      try{
+        const { user, session, error } = await supabase.auth.signUp({
+          email: this.email,
+          password: this.passwd
+        })
+        if (error) throw error;
+      } catch (error){
+        alert(error.error_description || error.message);
+      }
+      },
     },
     //this method allows the already registred user to log in the system.
     //only authenticated users can later add or read the poems
