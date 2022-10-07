@@ -35,6 +35,10 @@
           <label>Hidden poem</label>
         <br><button v-on:click="createPoem()">Add the poem</button>
         <button v-on:click="fetchPoems()">List of poems</button><br>
+        <div>
+        <input type="text" v-model="mot">
+        <button v-on:click="filtrer()">Recherche</button>
+   </div>
         <label for="poemtitle" id="poemtitle" style="color: teal;font-weight: 500;"> ... </label> 
         <img id="poemillustration" src="./assets/null.jpg" alt="poem illustration" width="75" height="75" style="background-color:gray;"/><br>
         <textarea  id="poemcontent" readonly rows="10" cols="50"> ... </textarea> <br>
@@ -126,6 +130,27 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
       },
       //this method allows to extract all readable poems of the authenticated user
       //including his peoms and the not hidden poems. This policy is implemented by the supabase system 
+      async filtrer(){
+      try{
+        const { data, error } = await supabase
+        .from('poems')
+        .select()
+        .like('title','%'+this.mot+'%')
+        poemsList=data
+        if(data.length>0){
+            document.getElementById('poemtitle').innerHTML=data[0].title+"    "
+            document.getElementById('poemcontent').value=data[0].content
+            document.getElementById('poemillustration').src=data[0].illustrationurl
+        }
+        currentpoem=0;
+            if (error) throw error;
+            }
+            catch (error) {
+              alert(error.error_description || error.message);
+            }
+    },
+
+    
       async fetchPoems(){
         //mange supabase access exceptions
           try{
