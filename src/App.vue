@@ -8,6 +8,7 @@
   <template>    
       <header>
       <router-link to="/">Go to Home</router-link>
+      
       <img alt="Poetry" class="logo" src="./assets/logo.png" width="125" height="125" />
       <div class="wrapper" id="signOut">
         <div><SignIn msg="Poet ! Tell us who you are !" /></div>
@@ -22,6 +23,14 @@
       <div class="hidden" id="addPoem">
         <div><SignIn msg="Write your poem !" /></div>
         <h3>The poem remains private, until you make it public</h3>
+        <br>
+        <br>
+        <select required name="Language" v-model="Language" >
+              <option>Français</option>
+              <option>Anglais</option>
+              <option>Espagnol</option>
+             
+      </select>   
         <label>Poem's title</label><br>
           <input type="text" required name="title" v-model="title" placeholder="edit me"><br>
           <label>Poem's content</label><br>
@@ -35,7 +44,12 @@
           <label>Hidden poem</label>
         <br><button v-on:click="createPoem()">Add the poem</button>
         <button v-on:click="fetchPoems()">List of poems</button><br>
+<br>
+<hr>
+      <br>
+
         <div>
+          <br>
         <input type="text" v-model="mot">
         <button v-on:click="filtrer()">Recherche</button>
    </div>
@@ -124,7 +138,7 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
           const { data, error }  =  await supabase
               .from('poems')
               .insert([
-              { hidden: this.hidden, email:this.email, title: this.title, content: this.content, illustrationurl: res} ])
+              { hidden: this.hidden, email:this.email, title: this.title, content: this.content, illustrationurl: res, Language:this.Language} ])
           if(error) throw(error)
           } catch(error) {alert(error.error_description || error.meassage)}
       },
